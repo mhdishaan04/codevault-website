@@ -1,0 +1,55 @@
+
+[functions.modify-code]
+enabled = true
+verify_jwt = true
+import_map = "./functions/modify-code/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/modify-code/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/modify-code/*.html" ]
+
+[functions.generate-description]
+enabled = true
+verify_jwt = true
+import_map = "./functions/generate-description/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/generate-description/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/generate-description/*.html" ]
+
+[functions.get-download-link]
+enabled = true
+verify_jwt = true
+import_map = "./functions/get-download-link/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/get-download-link/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/get-download-link/*.html" ]
+
+[functions.get-decryption-key]
+enabled = true
+verify_jwt = true
+import_map = "./functions/get-decryption-key/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/get-decryption-key/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/get-decryption-key/*.html" ]
+
+[functions.upload-and-encrypt-code]
+enabled = true
+verify_jwt = true
+import_map = "./functions/upload-and-encrypt-code/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/upload-and-encrypt-code/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/upload-and-encrypt-code/*.html" ]
