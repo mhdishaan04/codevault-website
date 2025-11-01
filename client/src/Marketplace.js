@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient'; // Ensure this path is correct
-import { useAuth } from './AuthContext';    // Ensure this path is correct
-import { Link } from 'react-router-dom';    // --- ADD THIS IMPORT ---
+import { supabase } from './supabaseClient';
+// --- *** FIX: Removed unused 'useAuth' *** ---
+import { Link } from 'react-router-dom';
 import './Marketplace.css';
 
-// Spinner component
-const Spinner = ({ size = '', color = '' }) => (
-    <div className={`spinner ${size} ${color}`}></div>
-);
+const Spinner = () => <div className="spinner spinner-large"></div>;
 
 // Placeholder Icon
 const CodeIcon = () => (
@@ -16,66 +13,52 @@ const CodeIcon = () => (
   </svg>
 );
 
-
-function MarketplacePage() { // Renamed component
+function MarketplacePage() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // --- ADDED SEARCH ---
-  const { user } = useAuth();
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // --- *** FIX: Removed unused 'user' variable *** ---
+  // const { user } = useAuth();
 
   useEffect(() => {
     const fetchListings = async () => {
-      if (!supabase) { setError("Service unavailable."); setLoading(false); return; }
-      setLoading(true); 
+      setLoading(true);
       setError(null);
       
-      try {
-        let query = supabase
-          .from('code_listings')
-          .select('*')
-          .order('created_at', { ascending: false });
+      let query = supabase
+        .from('code_listings')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-        // --- ADDED SEARCH LOGIC ---
-        if (searchTerm) {
-          query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
-        }
-        // --- END SEARCH LOGIC ---
-
-        const { data, error: fetchError } = await query;
-
-        if (fetchError) throw fetchError;
-        setListings(data || []);
-      } catch (err) {
-        console.error('Error fetching listings:', err);
-        setError('Failed to load listings. Please try again later.');
-      } finally {
-        setLoading(false);
+      if (searchTerm) {
+        query = query.or(`title.ilike.%${searchTerm}%,description.ilike.%${searchTerm}%`);
       }
+
+      const { data, error: fetchError } = await query;
+
+      if (fetchError) {
+        console.error('Error fetching listings:', fetchError);
+        setError(fetchError.message);
+      } else {
+        setListings(data);
+      }
+      setLoading(false);
     };
-    
-    // --- ADDED DEBOUNCE ---
+
     const delayDebounceFn = setTimeout(() => {
       fetchListings();
-    }, 300); // Wait 300ms after user stops typing
+    }, 300); 
 
     return () => clearTimeout(delayDebounceFn);
-    // --- END DEBOUNCE ---
-
-  }, [searchTerm]); // Re-run on searchTerm change
-
-  if (loading) {
-    return <div className="loading-container"><Spinner size="spinner-large"/></div>;
-  }
+  }, [searchTerm]);
 
   return (
-    <div className="page-container marketplace-container"> {/* --- USE NEW CSS CLASS --- */}
-      
-      {/* --- USE NEW TITLE/SUBTITLE --- */}
+    <div className="page-container marketplace-container">
       <h1 className="marketplace-title">Marketplace</h1>
       <p className="marketplace-subtitle">Browse and purchase secure code assets.</p>
 
-      {/* --- ADDED SEARCH BAR --- */}
       <div className="search-bar-container">
         <input
           type="text"
@@ -86,18 +69,16 @@ function MarketplacePage() { // Renamed component
         />
       </div>
 
-      {error && <p className="error-message" style={{marginBottom: '1.5rem'}}>{error}</p>}
+      {loading && <div className="loading-container"><Spinner /></div>}
+      
+      {error && <p className="error-message">{error}</p>}
 
       {!loading && !error && (
-        // --- USE NEW GRID CLASS ---
         <div className="marketplace-grid">
           {listings.length === 0 ? (
             <p className="no-results-message">No listings found{searchTerm && ` for "${searchTerm}"`}.</p>
           ) : (
             listings.map((listing) => (
-              
-              // --- *** THIS IS THE MAIN FIX *** ---
-              // Wrap the entire item in a Link to the detail page
               <Link to={`/marketplace/${listing.id}`} key={listing.id} className="marketplace-item-link">
                 <div className="marketplace-item">
                   <div className="item-icon">
@@ -105,17 +86,13 @@ function MarketplacePage() { // Renamed component
                   </div>
                   <div className="item-content">
                     <h3 className="item-title">{listing.title}</h3>
-                    <p className="item-description">
-                      {listing.description || 'No description provided.'}
-                    </p>
+                    <p className="item-description">{listing.description}</p>
                   </div>
                   <div className="item-footer">
-                    <span className="item-price">${parseFloat(listing.price || 0).toFixed(2)}</span>
+                    <span className="item-price">${parseFloat(listing.price).toFixed(2)}</span>
                   </div>
                 </div>
               </Link>
-              // --- *** END OF FIX *** ---
-
             ))
           )}
         </div>

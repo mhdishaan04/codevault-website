@@ -1,64 +1,42 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
-// --- *** MODIFICATION: Import Link *** ---
+// --- *** FIX: Removed 'useState' *** ---
+import React, { useEffect, useRef, useLayoutEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './HomePage.css'; // Import the specific styles
 
-// Placeholder components for icons
+// (All icon components remain the same)
 const LockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>;
 const CodeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>;
 const AISparkleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L25.75 5.25l-.813 2.846a4.5 4.5 0 00-3.09 3.09L18.25 12zM18.25 12l-2.846.813a4.5 4.5 0 00-3.09 3.09L11.25 18.75l.813-2.846a4.5 4.5 0 003.09-3.09L18.25 12z" /></svg>;
 const DollarIcon = () => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0l.879-.659M12 6a2.25 2.25 0 00-2.25 2.25v1.5a2.25 2.25 0 002.25 2.25m0-3.75a2.25 2.25 0 012.25 2.25v1.5a2.25 2.25 0 01-2.25 2.25M12 6v-1.5a2.25 2.25 0 00-2.25-2.25H9.75M12 6V4.5a2.25 2.25 0 012.25-2.25h.75m-3 15M9 18v-1.5a2.25 2.25 0 012.25-2.25h.75M15 18v-1.5a2.25 2.25 0 00-2.25-2.25h-.75" /></svg>;
-
-// --- *** NEW: Desktop Icon *** ---
 const DesktopIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" />
   </svg>
 );
-// --- *** END NEW ICON *** ---
 
-// --- Data for the steps (ORDER FIXED) ---
+// (steps data remains the same)
 const steps = [
-  {
-    id: 1,
-    title: '1. Seller Uploads & Encrypts',
-    description: "Developer uploads code. It's instantly encrypted with a unique key (AES-GCM 256-bit) and stored. Plaintext is never saved.",
-  },
-  {
-    id: 2,
-    title: '2. Buyer Purchases License',
-    description: "A buyer purchases access, granting their account permission to use the code's functionality, not the source.",
-  },
-  {
-    id: 3,
-    title: '3. AI-Powered Modification',
-    description: "The AI securely modifies the code on the backend, creating a new, separately encrypted version for the buyer.",
-  },
-  {
-    id: 4,
-    title: '4. Secure Local Execution',
-    description: "The buyer's `codevault-loader` tool fetches the encrypted code and the key separately, decrypting it only in local memory.",
-  },
+  { id: 1, title: '1. Seller Uploads & Encrypts', description: "Developer uploads code. It's instantly encrypted with a unique key (AES-GCM 256-bit) and stored. Plaintext is never saved." },
+  { id: 2, title: '2. Buyer Purchases License', description: "A buyer purchases access, granting their account permission to use the code's functionality, not the source." },
+  { id: 3, title: '3. AI-Powered Modification', description: "The AI securely modifies the code on the backend, creating a new, separately encrypted version for the buyer." },
+  { id: 4, title: '4. Secure Local Execution', description: "The buyer's `codevault-loader` tool fetches the encrypted code and the key separately, decrypting it only in local memory." },
 ];
-// --- End of new data ---
 
 function HomePage() {
   const navigate = useNavigate();
-  const pathRef = useRef(null); // The SVG <path> element
+  const pathRef = useRef(null); 
 
-  // 1. Measure the total length of the SVG path and draw it
+  // 1. Draw the SVG line on load
   useLayoutEffect(() => {
     if (pathRef.current) {
       const totalLength = pathRef.current.getTotalLength();
       pathRef.current.style.strokeDasharray = `${totalLength} ${totalLength}`;
-      // Set offset to 0 to draw the line immediately
       pathRef.current.style.strokeDashoffset = 0;
-      // Add a transition so it animates in on load
       pathRef.current.style.transition = 'stroke-dashoffset 2s ease-out';
     }
   }, []);
 
-  // 2. Intersection Observer for other fade-in elements
+  // 2. Intersection Observer for fade-ins
   useEffect(() => {
     const mainObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -112,7 +90,6 @@ function HomePage() {
       <section className="feature-section page-container fade-in-section">
         <h2 className="section-title">Why <span className="highlight">CodeVault</span>?</h2>
         <div className="feature-grid">
-          {/* ... Feature cards ... */}
           <div className="feature-card">
             <div className="feature-icon"><LockIcon /></div>
             <h3 className="feature-title">Enhanced Security</h3>
@@ -146,24 +123,15 @@ function HomePage() {
           </p>
         </div>
 
-        {/* This is the "scroll track" - now just a regular container */}
         <div className="hiw-scroll-track" style={{height: 'auto'}}>
-          
-          {/* This is the "sticky" window - now just a regular container */}
           <div className="hiw-sticky-container" style={{position: 'relative', height: 'auto'}}>
-            
-            {/* This is the two-column grid */}
             <div className="hiw-grid">
-
               {/* Column 1: Text Content */}
               <div className="hiw-content-column">
                 <div className="hiw-steps-list">
-                  {/* The text boxes are now positioned relative to this list */}
                   {steps.map((step) => (
                     <div 
                       key={step.id} 
-                      // --- *** MODIFICATION *** ---
-                      // Always active
                       className={`hiw-step-content active`}
                     >
                       <h4>{step.title}</h4>
@@ -183,7 +151,6 @@ function HomePage() {
                     </linearGradient>
                   </defs>
 
-                  {/* SVG path: starts center, goes left, then right, then center */}
                   <path 
                     d="M 150 50 L 150 200 Q 150 250 100 250 L 50 250 Q 0 250 0 300 L 0 400 Q 0 450 50 450 L 250 450 Q 300 450 300 500 L 300 600 Q 300 650 250 650 L 150 650 L 150 950"
                     stroke="var(--border-color)" 
@@ -199,17 +166,12 @@ function HomePage() {
                     fill="none" 
                   />
                   
-                  {/* --- *** MODIFICATION *** --- */}
-                  {/* All nodes are now permanently active */}
                   <circle cx="150" cy="225" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
                   <text x="150" y="231" className={`hiw-svg-node-text active`}>+</text>
-                  
                   <circle cx="0" cy="350" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
                   <text x="0" y="356" className={`hiw-svg-node-text active`}>+</text>
-                  
                   <circle cx="300" cy="550" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
                   <text x="300" y="556" className={`hiw-svg-node-text active`}>+</text>
-
                   <circle cx="150" cy="800" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
                   <text x="150" y="806" className={`hiw-svg-node-text active`}>+</text>
                 </svg>
@@ -221,8 +183,8 @@ function HomePage() {
       </section>
       {/* --- END "How It Works" Section --- */}
 
-
-      {/* --- *** NEW APP DOWNLOAD CTA SECTION *** --- */}
+      
+      {/* --- APP DOWNLOAD CTA SECTION --- */}
       <section className="app-cta-section page-container fade-in-section">
         <div className="app-cta-content">
           <h2 className="section-title">Meet the <span className="highlight">CodeVault App</span></h2>
@@ -242,7 +204,7 @@ function HomePage() {
           <DesktopIcon />
         </div>
       </section>
-      {/* --- *** END NEW SECTION *** --- */}
+      {/* --- END NEW SECTION --- */}
 
 
        {/* Security Focus Section */}

@@ -1,162 +1,224 @@
 .detail-page-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    animation: fadeInSlideUp 0.5s ease-out;
-  }
-  
-  .detail-card {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 10px 30px var(--shadow-color);
-    overflow: hidden; /* To contain header/footer backgrounds */
-  }
-  
-  .detail-header {
-    padding: 2rem 2.5rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .detail-title {
-    margin: 0 0 0.5rem 0;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  
-  .detail-seller {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-  .detail-seller span {
-    color: var(--cyan-glow);
-    font-weight: 500;
-  }
-  
-  .detail-body {
-    padding: 1.5rem 2.5rem;
-  }
-  
-  .detail-description h3 {
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-  }
-  .detail-description p {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 80ch; /* Limit line length for readability */
-  }
-  
-  .detail-requirements {
-    margin-top: 2rem;
-  }
-  .detail-requirements h3 {
-    font-size: 1.25rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-  }
-  .detail-requirements p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-top: 0;
-  }
-  .detail-requirements ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0;
-    list-style: none;
-  }
-  .detail-requirements li {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.85rem;
-    color: var(--cyan-glow);
-    background: var(--bg-deep-space);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-  }
-  
-  .detail-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2.5rem;
-    background: var(--bg-deep-space);
-    border-top: 1px solid var(--border-color);
-  }
-  
-  .detail-price {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  
-  .detail-footer .btn {
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-  }
-  .detail-footer .btn:disabled {
-    background: var(--bg-panel);
-    border-color: var(--border-color);
-    color: var(--text-secondary);
-    cursor: not-allowed;
-  }
-  
-  .message {
-    margin: 1.5rem 2.5rem;
-    padding: 1rem;
-    border-radius: 6px;
-    font-weight: 500;
-    text-align: center;
-  }
-  .success-message {
-    background: rgba(22, 163, 74, 0.1);
-    border: 1px solid var(--green-accent);
-    color: var(--text-primary);
-  }
-  .error-message {
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid var(--red-accent);
-    color: var(--red-accent);
-  }
+  max-width: 1200px; /* Wider for 2 columns */
+  margin: 2rem auto;
+  animation: fadeInSlideUp 0.5s ease-out;
+}
 
-  /* ... (all your existing styles) ... */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Left column 320px, right fills rest */
+  gap: 2rem;
+}
 
-/* --- *** NEW STYLES FOR DOWNLOAD PROMPT *** --- */
+/* --- Left (Sticky) Column --- */
+.detail-grid-left {
+  position: sticky;
+  top: 2rem; /* Sticks 2rem from the top of the viewport */
+  height: calc(100vh - 4rem); /* So it knows when to stop */
+}
+
+.detail-graphic {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+.detail-graphic svg {
+  width: 100px;
+  height: 100px;
+  color: var(--cyan-glow);
+  filter: drop-shadow(0 0 10px var(--cyan-glow));
+}
+
+.detail-purchase-box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.detail-price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: block;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.detail-purchase-box .btn {
+  width: 100%; /* Make button full width */
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+}
+.detail-purchase-box .btn:disabled {
+  background: var(--bg-deep-space);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
 .download-prompt {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 2.5rem;
-    background: rgba(14, 116, 144, 0.1); /* Blue accent */
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0 0.5rem 0; /* No background */
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.download-prompt .prompt-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.download-prompt .prompt-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0 0 0.5rem 0;
+}
+
+.download-prompt .prompt-link {
+  font-size: 0.85rem;
+  color: var(--cyan-glow);
+  font-weight: 600;
+  text-decoration: none;
+}
+.download-prompt .prompt-link:hover {
+  text-decoration: underline;
+}
+
+.download-prompt svg {
+  color: var(--cyan-glow);
+}
+
+
+/* --- Right (Content) Column --- */
+.detail-grid-right {
+  min-width: 0; /* Prevents overflow */
+}
+
+.detail-header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.detail-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.detail-seller {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.detail-seller span {
+  color: var(--cyan-glow);
+  font-weight: 500;
+}
+
+.detail-content-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.detail-description h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+.detail-description p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 80ch;
+  white-space: pre-wrap; /* Preserves line breaks from description */
+}
+
+.detail-requirements {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+.detail-requirements h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+.detail-requirements p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.detail-requirements ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+.detail-requirements li {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  color: var(--cyan-glow);
+  background: var(--bg-deep-space);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+.success-message {
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid var(--green-accent);
+  color: var(--text-primary);
+}
+.error-message {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--red-accent);
+  color: var(--red-accent);
+}
+
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
   }
-  
-  .download-prompt .prompt-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin: 0 0 0.25rem 0;
+  .detail-grid-left {
+    position: static; /* Un-stick the left column */
+    height: auto;
   }
-  
-  .download-prompt .prompt-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
+  .detail-graphic {
+    display: none; /* Hide big icon on mobile to save space */
   }
-  
-  .download-prompt svg {
-    color: var(--cyan-glow);
+  .detail-purchase-box {
+    margin-top: 0;
+    margin-bottom: 2rem; /* Add space between boxes */
   }
-  
-  .download-prompt .btn {
-    margin-left: auto;
-    flex-shrink: 0; /* Prevents button from wrapping */
-  }
-  /* --- *** END NEW STYLES *** --- */
+}

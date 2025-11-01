@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from './supabaseClient';
 import { useAuth } from './AuthContext';
-import { useNavigate } from 'react-router-dom';
-import './CodeModifier.css'; // We will update this file next
+// --- *** FIX: Removed 'useNavigate' since it's not used *** ---
+// import { useNavigate } from 'react-router-dom'; 
+import './CodeModifier.css'; 
 
 const Spinner = ({ size = '' }) => <div className={`spinner ${size}`}></div>;
 
@@ -16,7 +17,8 @@ function CodeModifier() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   
-  const navigate = useNavigate();
+  // --- *** FIX: Removed unused 'navigate' variable *** ---
+  // const navigate = useNavigate();
 
   // Fetch all purchasable/modifiable items
   const fetchPurchases = useCallback(async () => {
@@ -100,21 +102,13 @@ function CodeModifier() {
 
       if (error) throw error;
       if (data.error) throw new Error(data.error);
-
-      // --- THIS IS THE FIX ---
-      // DO NOT set the returned code in state.
-      // Instead, show a success message and clear the form.
       
       setMessage(`Success! Version ${data.newVersionNumber} created. You can now run it from your Library.`);
       setModificationRequest('');
       setSelectedVersion('');
       setListingId('');
       
-      // Refresh the purchase list to show the new version in the dropdown
       await fetchPurchases(); 
-      
-      // Optional: Navigate to the library
-      // setTimeout(() => navigate('/loader'), 3000);
 
     } catch (err) {
       console.error('Modification error:', err);
