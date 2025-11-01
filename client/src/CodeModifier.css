@@ -1,0 +1,95 @@
+.modifier-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  animation: fadeInSlideUp 0.5s ease-out;
+}
+
+.modifier-form {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.modifier-form .section-title {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.modifier-form .section-subtitle {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Re-using global form styles */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background-color: rgba(10, 15, 26, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* Important for padding to work nicely */
+  font-family: inherit;
+}
+.form-input:focus, .form-input:focus-visible {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
+}
+.form-input[disabled] {
+  background-color: var(--bg-deep-space);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Specific to select dropdown */
+.form-input optgroup {
+  font-weight: bold;
+  font-style: italic;
+  background: var(--bg-deep-space);
+  color: var(--text-primary);
+}
+.form-input option {
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  padding: 0.5rem;
+}
+
+/* Message styling */
+.message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+.success-message {
+  background: rgba(22, 163, 74, 0.1); /* Green */
+  border: 1px solid var(--green-accent);
+  color: var(--text-primary);
+}
+.error-message {
+  background: rgba(220, 38, 38, 0.1); /* Red */
+  border: 1px solid var(--red-accent);
+  color: var(--red-accent);
+}

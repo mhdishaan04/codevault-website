@@ -1,0 +1,168 @@
+.login-container {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden; 
+}
+
+.login-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.login-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-black);
+  opacity: 0.80; /* Slightly less dark to see the blur */
+  z-index: 1; 
+}
+
+.login-form {
+  position: relative;
+  z-index: 2;
+  max-width: 450px;
+  width: 100%;
+  padding: 2.5rem;
+  animation: fadeInSlideUp 0.5s ease-out;
+
+  /* --- *** NEW GLASSY DESIGN *** --- */
+  background-color: rgba(17, 24, 39, 0.6); /* Translucent panel */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  /* --- *** END NEW DESIGN *** --- */
+}
+
+.login-form .brand-title {
+  text-align: center;
+  color: var(--cyan-glow);
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-shadow: var(--glow-shadow-cyan);
+}
+
+.login-form .form-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  /* --- *** MODIFIED: Darker for glass effect *** --- */
+  background-color: rgba(10, 15, 26, 0.7); 
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-sizing: border-box; 
+}
+
+.form-input:focus, .form-input:focus-visible {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+  color: var(--bg-black);
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-accent-hover);
+  border-color: var(--primary-accent-hover);
+  box-shadow: 0 0 15px var(--glow-shadow-cyan);
+}
+.btn:disabled {
+  background-color: var(--border-color);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+.success-message {
+  background: rgba(22, 163, 74, 0.1); 
+  border: 1px solid var(--green-accent);
+  color: var(--text-primary);
+}
+.error-message {
+  background: rgba(220, 38, 38, 0.1); 
+  border: 1px solid var(--red-accent);
+  color: var(--red-accent);
+}
+
+.form-toggle-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.form-toggle-link a {
+  color: var(--cyan-glow);
+  font-weight: 600;
+  text-decoration: none;
+}
+.form-toggle-link a:hover {
+  text-decoration: underline;
+}

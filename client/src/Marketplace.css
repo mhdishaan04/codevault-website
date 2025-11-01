@@ -1,0 +1,139 @@
+/* --- Marketplace Page --- */
+.marketplace-container {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  animation: fadeInSlideUp 0.5s ease-out;
+}
+
+.marketplace-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.marketplace-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* --- Search Bar --- */
+.search-bar-container {
+  margin-bottom: 2.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.9rem 1.25rem;
+  font-size: 1rem;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* Fixes padding issue */
+}
+.search-input:focus, .search-input:focus-visible {
+  outline: none;
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.3);
+}
+
+/* --- Marketplace Grid --- */
+.marketplace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.no-results-message {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* --- Marketplace Item Card --- */
+.marketplace-item-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.marketplace-item {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+.marketplace-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--cyan-glow);
+  box-shadow: 0 8px 25px rgba(0, 240, 255, 0.1);
+}
+
+.item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.item-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--cyan-glow);
+  opacity: 0.8;
+}
+
+.item-content {
+  padding: 1.5rem;
+  flex-grow: 1; /* This makes the card content fill the space */
+}
+
+.item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.item-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  /* Truncate long descriptions */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.item-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-deep-space);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 7px 7px; /* Match card radius */
+}
+
+.item-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--cyan-glow);
+}

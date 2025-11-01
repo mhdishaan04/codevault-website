@@ -1,0 +1,71 @@
+/* client/src/ContactPage.css */
+/* Uses global .page-container, .page-header, .form-group, .form-input, .btn */
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 3rem;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2.5rem;
+  }
+  
+  .contact-info h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-info p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-details {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .contact-details p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-details strong {
+    color: var(--text-primary);
+    margin-right: 0.5rem;
+  }
+  
+  .contact-form {
+    width: 100%;
+  }
+  
+  .contact-success-message {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--green-accent);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  
+  .contact-success-message h3 {
+    color: var(--green-accent);
+    font-size: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 900px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+  

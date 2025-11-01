@@ -1,0 +1,161 @@
+/* --- src/MyPurchases.css - Quantum Lock Theme --- */
+/* Assumes variables (--bg-panel, --border-color, etc.) are in global index.css */
+
+/* Main list for each purchased item */
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    animation: fadeInSlideUp 0.5s ease-out forwards;
+  }
+  
+  .list-item {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: all 0.3s ease-out;
+  }
+  .list-item:hover {
+    border-color: var(--border-color);
+    box-shadow: 0 8px 25px var(--shadow-color);
+  }
+  
+  .list-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+  }
+  
+  .list-item-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cyan-glow);
+    text-shadow: var(--glow-shadow-cyan);
+    margin: 0;
+  }
+  
+  .list-item-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  
+  /* Container for the versions list */
+  .version-list-container {
+    /* Add any specific container styles here if needed */
+  }
+  
+  .version-list-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* List of versions (ul) */
+  .version-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  /* Individual version item (li) */
+  .version-item {
+    background-color: var(--bg-deep-space); /* Darker background */
+    border-radius: 6px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+  }
+  
+  .version-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem; /* row-gap, column-gap */
+  }
+  
+  .version-item-name {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+  
+  .version-item-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  
+  /* "Get Load Command" button (uses global .btn) */
+  .version-item .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Command input/copy container */
+  .loader-command-container {
+    display: flex;
+    margin-top: 0.75rem;
+  }
+  
+  .loader-command-input {
+    /* Extends global .form-input */
+    flex-grow: 1;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    background-color: var(--bg-black);
+    color: var(--text-secondary);
+    border-color: var(--bg-panel);
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    padding: 0.5rem 0.75rem;
+  }
+  .loader-command-input:focus {
+    /* Overrides global focus to keep it contained */
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 2px var(--glow-shadow-cyan);
+    z-index: 1;
+  }
+  
+  .loader-command-copy {
+    /* Extends global .btn .btn-primary */
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid var(--blue-glow); /* Match gradient */
+  }
+  .loader-command-copy:active:not(:disabled) {
+    transform: none; /* Disable bounciness for this small button */
+  }
+  
+  /* Arduino helper text */
+  .arduino-instructions {
+    background-color: rgba(10, 15, 26, 0.5); /* bg-deep-space trans */
+    border-left: 3px solid var(--cyan-glow);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+  
+  .arduino-instructions code {
+    background-color: var(--bg-panel);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--cyan-glow);
+    font-size: 0.9em;
+  }

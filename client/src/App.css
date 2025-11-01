@@ -1,0 +1,73 @@
+/* src/App.css - LAYOUT STYLES ONLY - Quantum Lock Theme */
+/* Assumes variables (--bg-black, --border-color etc.) are defined in index.css */
+
+/* App Wrapper */
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Content Area */
+.main-content {
+  flex-grow: 1; /* Pushes footer down */
+  /* No padding here, use .page-container inside pages */
+}
+
+/* Page Container (Generic padding/width for pages - Can live here or index.css) */
+.page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.5rem; /* Standard page padding */
+}
+
+/* --- Navbar Styles --- */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.7); /* Black translucent */
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 0.75rem; font-size: 1.6rem; font-weight: 900;
+  color: var(--cyan-glow); text-decoration: none; transition: transform 0.2s ease-out, text-shadow 0.2s ease-out;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6); cursor: pointer;
+}
+.nav-brand:hover { transform: scale(1.03); text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); }
+.nav-brand-logo { /* Optional Logo Placeholder */
+  width: 2rem; height: 2rem; border: 2px solid var(--cyan-glow); border-radius: 50%;
+  box-shadow: var(--glow-shadow-cyan); display: flex; justify-content: center; align-items: center;
+  background-color: rgba(0, 240, 255, 0.1);
+}
+.nav-links { display: flex; align-items: center; gap: 0.75rem; }
+.nav-link { /* Base styles for Nav Links */
+  color: var(--text-secondary); background-color: transparent; border: none; font-family: inherit;
+  font-size: 0.95rem; font-weight: 500; padding: 0.6rem 0.9rem; border-radius: 6px;
+  text-decoration: none; cursor: pointer; transition: all 0.2s ease-out; position: relative;
+  border: 1px solid transparent;
+}
+.nav-link::after { /* Underline effect */
+  content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 2px; background-color: var(--cyan-glow); box-shadow: 0 0 5px var(--cyan-glow);
+  transition: width 0.3s ease; border-radius: 1px;
+}
+.nav-link:hover { color: var(--text-primary); background-color: rgba(51, 65, 85, 0.3); /* Optional hover bg */ }
+.nav-link:hover::after { width: 70%; }
+.nav-link.nav-link-active { color: var(--cyan-glow); text-shadow: 0 0 4px rgba(0, 240, 255, 0.5); }
+.nav-link.nav-link-active::after { width: 70%; }
+.nav-link.btn-danger { /* Sign out button specifics */
+  border-color: var(--red-accent); color: var(--red-accent); padding: 0.4rem 0.8rem; font-size: 0.85rem;
+}
+.nav-link.btn-danger:hover { background-color: rgba(244, 63, 94, 0.2); color: #FCCFCF; border-color: rgba(244, 63, 94, 0.5); text-shadow: 0 0 3px rgba(244, 63, 94, 0.5); }
+.nav-link.btn-danger::after { display: none; }
+.nav-user { color: var(--text-muted); font-size: 0.85rem; margin-left: 0.75rem; }
+
+/* Footer is no longer in App.css
+  The old .footer style has been removed.
+  It is now handled by Footer.js and Footer.css 
+*/

@@ -1,0 +1,66 @@
+/* client/src/AboutPage.css */
+/* This file can be reused for other static pages */
+
+/* Uses global .page-container and .page-header */
+
+.static-page-container {
+    max-width: 900px; /* Constrain width for readability */
+    animation: fadeInSlideUp 0.5s ease-out; /* Uses global animation */
+  }
+  
+  .static-content {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  
+  .static-content section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .static-content section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .static-content h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .static-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .static-content ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .static-content li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  
+  .static-content li::before {
+    content: '→';
+    position: absolute;
+    left: -0.5rem;
+    color: var(--cyan-glow);
+    font-weight: bold;
+  }
+  
+  .static-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  
