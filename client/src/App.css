@@ -71,3 +71,119 @@
   The old .footer style has been removed.
   It is now handled by Footer.js and Footer.css 
 */
+/* --- Main App Layout --- */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-black);
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* --- Navbar Styles --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  height: 70px;
+  background-color: var(--bg-deep-space);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't add to width */
+}
+
+.nav-brand {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--cyan-glow);
+  text-decoration: none;
+  text-shadow: var(--glow-shadow-cyan);
+}
+.nav-brand:hover {
+  color: var(--primary-accent-hover);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.nav-link:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 5px var(--glow-shadow-cyan);
+}
+.nav-link-active {
+  color: var(--cyan-glow);
+  font-weight: 700;
+  text-shadow: 0 0 5px var(--glow-shadow-cyan);
+}
+
+/* --- *** NEW: Hamburger Menu Button *** --- */
+.nav-hamburger-btn {
+  display: none; /* Hidden by default */
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.nav-hamburger-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* --- *** NEW: Mobile Responsive Styles *** --- */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 1.5rem;
+  }
+  
+  .nav-hamburger-btn {
+    display: block; /* Show the hamburger button */
+    z-index: 102; /* Above the mobile menu */
+  }
+
+  .nav-links {
+    /* --- This is the mobile menu --- */
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-deep-space);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 101;
+  }
+
+  .nav-links-mobile-open {
+    right: 0; /* Slide in */
+  }
+  
+  .nav-link {
+    font-size: 1.5rem; /* Make links bigger */
+  }
+}

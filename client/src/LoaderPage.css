@@ -2,12 +2,11 @@
 .loader-ui-container {
   display: grid;
   grid-template-columns: 400px 1fr;
-  /* Use vh calc to fill screen minus navbar/footer (approx) */
-  height: calc(100vh - 140px); /* 70px nav + 70px footer */
+  height: calc(100vh - 140px);
   width: 100%;
   max-width: 100%;
-  padding: 0 !important; /* Override .page-container padding */
-  margin: 0 !important; /* Override .page-container margin */
+  padding: 0 !important;
+  margin: 0 !important;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -23,10 +22,7 @@
   height: 100%;
   border-right: 1px solid var(--border-color);
   background-color: var(--bg-deep-space);
-  /* --- *** THIS IS THE FIX (Part 1) *** --- */
-  /* This tells the panel to cut off any content that's too big */
   overflow: hidden; 
-  /* --- *** END OF FIX *** --- */
 }
 .library-header {
   display: flex;
@@ -34,7 +30,7 @@
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0; /* Prevents header from shrinking */
+  flex-shrink: 0;
 }
 .library-header h2 {
   font-size: 1.25rem;
@@ -64,15 +60,12 @@
 
 .library-list {
   flex-grow: 1;
-  overflow-y: auto; /* This creates the scrollbar */
+  overflow-y: auto;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* --- *** THIS IS THE FIX (Part 2) *** --- */
-  /* This tells the list to shrink correctly inside the flex container */
   min-height: 0;
-  /* --- *** END OF FIX *** --- */
 }
 .loader-empty-state {
   text-align: center;
@@ -136,7 +129,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .version-row .btn {
   flex-shrink: 0;
   min-width: 80px; 
@@ -150,8 +142,7 @@
   flex-direction: column;
   height: 100%;
   background: var(--bg-black);
-  /* --- *** NEW: Add overflow: hidden *** --- */
-  overflow: hidden; /* This makes sure the console also behaves */
+  overflow: hidden; 
 }
 .console-header {
   display: flex;
@@ -160,7 +151,7 @@
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-deep-space);
-  flex-shrink: 0; /* Prevents header from shrinking */
+  flex-shrink: 0; 
 }
 .console-header h3 {
   margin: 0;
@@ -186,14 +177,13 @@
 
 .console-output {
   flex-grow: 1;
-  overflow-y: auto; /* This creates the scrollbar */
+  overflow-y: auto;
   padding: 1.5rem;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.9rem;
   color: var(--text-secondary);
   white-space: pre-wrap; 
   word-break: break-all;
-  /* --- *** NEW: Add min-height *** --- */
   min-height: 0;
 }
 .console-placeholder {
@@ -210,6 +200,31 @@
   color: var(--text-primary);
 }
 
+
+/* --- *** NEW: Mobile Styles for Loader Page *** --- */
+@media (max-width: 900px) {
+  .loader-ui-container {
+    /* Stack the columns */
+    grid-template-columns: 1fr;
+    /* Allow the page to grow */
+    height: auto; 
+    min-height: calc(100vh - 140px);
+  }
+
+  .library-panel {
+    height: 50vh; /* Give library a fixed height */
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .console-panel {
+    height: 60vh; /* Give console a fixed height */
+  }
+
+  .library-header h2, .console-header h3 {
+    font-size: 1.1rem;
+  }
+}
 
 /* --- STYLES FOR MODAL --- */
 .modal-backdrop {
@@ -232,42 +247,19 @@
   background: var(--bg-panel);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 2rem;
-  width: 100%;
+  padding: 1.5rem; /* Smaller padding on mobile */
+  width: 90%; /* Use % width */
   max-width: 450px;
   box-shadow: 0 10px 40px var(--shadow-color), var(--glow-shadow-cyan);
   animation: fadeInSlideUp 0.3s ease-out;
 }
 
 .modal-title {
-  font-size: 1.75rem;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
 }
 .modal-instructions {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  margin: 0 0 1.5rem 0;
+  font-size: 0.9rem;
 }
-
-/* Stealing styles from Login.css */
-.form-group { margin-bottom: 1.5rem; position: relative; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
-.form-input {
-  width: 100%; padding: 0.8rem 1rem; font-size: 1rem; color: var(--text-primary);
-  background-color: rgba(10, 15, 26, 0.7); border: 1px solid var(--border-color);
-  border-radius: 6px; transition: all 0.2s ease; box-sizing: border-box; font-family: inherit;
-}
-.form-input:focus, .form-input:focus-visible {
-  outline: none; border-color: var(--focus-ring); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
-}
-/* End stolen styles */
-
 .modal-button-group {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-.modal-button-group .btn {
-  flex-grow: 1;
+  flex-direction: column;
 }
