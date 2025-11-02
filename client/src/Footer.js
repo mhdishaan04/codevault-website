@@ -18,7 +18,7 @@ const Footer = () => {
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="social-link">
               <IconTwitter />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="social-link">
+            <a href="https://github.com/mhdishaan04/codevault-website" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="social-link">
               <IconGithub />
             </a>
           </div>
