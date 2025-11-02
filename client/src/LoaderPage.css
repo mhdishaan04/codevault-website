@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 400px 1fr;
   /* Use vh calc to fill screen minus navbar/footer (approx) */
-  height: calc(100vh - 70px - 70px); 
+  height: calc(100vh - 140px); /* 70px nav + 70px footer */
   width: 100%;
   max-width: 100%;
   padding: 0 !important; /* Override .page-container padding */
@@ -23,6 +23,10 @@
   height: 100%;
   border-right: 1px solid var(--border-color);
   background-color: var(--bg-deep-space);
+  /* --- *** THIS IS THE FIX (Part 1) *** --- */
+  /* This tells the panel to cut off any content that's too big */
+  overflow: hidden; 
+  /* --- *** END OF FIX *** --- */
 }
 .library-header {
   display: flex;
@@ -30,7 +34,7 @@
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevents header from shrinking */
 }
 .library-header h2 {
   font-size: 1.25rem;
@@ -60,11 +64,15 @@
 
 .library-list {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* This creates the scrollbar */
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  /* --- *** THIS IS THE FIX (Part 2) *** --- */
+  /* This tells the list to shrink correctly inside the flex container */
+  min-height: 0;
+  /* --- *** END OF FIX *** --- */
 }
 .loader-empty-state {
   text-align: center;
@@ -129,13 +137,11 @@
   text-overflow: ellipsis;
 }
 
-/* --- *** THIS IS THE FIX *** --- */
 .version-row .btn {
   flex-shrink: 0;
-  min-width: 80px;  /* Ensure buttons align */
-  width: auto;      /* This overrides any global width: 100% */
+  min-width: 80px; 
+  width: auto;      
 }
-/* --- *** END OF FIX *** --- */
 
 
 /* Right Panel: Console */
@@ -144,6 +150,8 @@
   flex-direction: column;
   height: 100%;
   background: var(--bg-black);
+  /* --- *** NEW: Add overflow: hidden *** --- */
+  overflow: hidden; /* This makes sure the console also behaves */
 }
 .console-header {
   display: flex;
@@ -152,7 +160,7 @@
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-deep-space);
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevents header from shrinking */
 }
 .console-header h3 {
   margin: 0;
@@ -178,13 +186,15 @@
 
 .console-output {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* This creates the scrollbar */
   padding: 1.5rem;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.9rem;
   color: var(--text-secondary);
-  white-space: pre-wrap; /* Wrap long lines */
+  white-space: pre-wrap; 
   word-break: break-all;
+  /* --- *** NEW: Add min-height *** --- */
+  min-height: 0;
 }
 .console-placeholder {
   color: var(--text-muted);
