@@ -90,3 +90,75 @@
     margin-top: 1.5rem;
     margin-bottom: 0;
   }
+
+  /* ... (all your existing .download-card styles) ... */
+
+/* --- *** NEW STYLES FOR REQUIREMENTS BOX *** --- */
+.requirements-card {
+  background: var(--bg-deep-space);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-left: 4px solid var(--primary-accent); /* Accent border */
+}
+
+.requirements-title {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.requirements-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.requirements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2-column list */
+  gap: 1rem;
+}
+
+.requirements-list li {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.requirements-list li strong {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.requirements-list li a {
+  color: var(--cyan-glow);
+  text-decoration: none;
+  font-weight: 500;
+}
+.requirements-list li a:hover {
+  text-decoration: underline;
+}
+
+.requirements-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Responsive for requirements list */
+@media (max-width: 600px) {
+  .requirements-list {
+    grid-template-columns: 1fr; /* Stack on mobile */
+  }
+}

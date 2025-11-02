@@ -1,5 +1,7 @@
 import React from 'react';
-import './DownloadsPage.css'; // We will create this next
+import './DownloadsPage.css'; 
+// --- *** FIX: Removed unused 'Link' import *** ---
+// import { Link } from 'react-router-dom'; 
 
 // Simple Windows Icon
 const WindowsIcon = () => (
@@ -17,8 +19,8 @@ const DesktopIcon = () => (
 
 
 function DownloadsPage() {
-  // TODO: Replace this placeholder with the actual path to your hosted .exe file
-  const downloadLink = "https://github.com/mhdishaan04/CodeVault-app/releases/download/v1.0.0/CodeVault.Setup.1.0.0.exe";
+  // Paste your real GitHub release link here
+  const downloadLink = "https://github.com/mhdishaan04/codevault-app/releases/download/v1.0.0/CodeVault.Setup.1.0.0.exe";
 
   return (
     <div className="page-container download-container">
@@ -46,16 +48,47 @@ function DownloadsPage() {
         <a 
           href={downloadLink} 
           className="btn btn-primary download-button"
-          // Add the 'download' attribute to suggest downloading
-          download 
         >
           <WindowsIcon />
           Download for Windows
         </a>
         <p className="download-note">
-          After building your `.exe`, place it in the `/public/downloads/` folder of your website project and re-deploy.
+          Hosted on GitHub Releases.
         </p>
       </div>
+
+      <div className="requirements-card">
+        <h3 className="requirements-title">System Requirements</h3>
+        <p className="requirements-text">
+          To run all code types, the CodeVault app requires some system tools to be installed and added to your system's PATH.
+        </p>
+        <ul className="requirements-list">
+          <li>
+            <strong>Python (for `.py` files):</strong>
+            <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">Python 3.x</a>
+          </li>
+          <li>
+            <strong>C/C++ (for `.c`, `.cpp` files):</strong>
+            <a href="https://github.com/tdm-gcc/tdm-gcc/releases" target="_blank" rel="noopener noreferrer">TDM-GCC (MinGW)</a>
+          </li>
+          <li>
+            <strong>Java (for `.java` files):</strong>
+            <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer">Java Development Kit (JDK)</a>
+          </li>
+          <li>
+            <strong>Arduino (for `.ino` files):</strong>
+            <a href="https://arduino.github.io/arduino-cli/latest/installation/" target="_blank" rel="noopener noreferrer">Arduino CLI</a>
+          </li>
+          <li>
+            <strong>FFMPEG (for video scripts):</strong>
+            <a href="https://ffmpeg.org/download.html" target="_blank" rel="noopener noreferrer">FFMPEG</a>
+          </li>
+        </ul>
+        <p className="requirements-note">
+          After installing, please ensure the tool's `bin` folder is added to your system's `PATH` environment variable and restart the CodeVault app.
+        </p>
+      </div>
+
     </div>
   );
 }
