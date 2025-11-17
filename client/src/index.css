@@ -1,31 +1,34 @@
-/* src/index.css - GLOBAL STYLES (Quantum Lock Theme) */
+/* src/index.css - REBUILT THEME (Fortress - Black/Mint) */
 
 /* 1. Font Import & Root Variables */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap');
 
 :root {
-  /* Color Palette */
+  /* === NEW: NEUTRAL DARK PALETTE (Jet Black) === */
   --bg-black: #000000;
-  --bg-deep-space: #0A0F1A;
-  --bg-panel: #101828;
-  --bg-panel-translucent: rgba(16, 24, 40, 0.85);
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #475569;
+  --bg-deep-space: #111111; /* Very dark grey */
+  --bg-panel: #191919; /* Panel grey */
+  --bg-panel-translucent: rgba(25, 25, 25, 0.85);
+  --text-primary: #F0FDF4; /* Off-white */
+  --text-secondary: #A3B3AC; /* Muted Green-Gray */
+  --text-muted: #4A5F57; /* Dark Muted Green */
 
-  /* Accent Colors */
-  --cyan-glow: #00F0FF;
-  --blue-glow: #3B82F6;
-  --purple-glow: #A855F7;
-  --green-accent: #34D399;
-  --red-accent: #F43F5E;
+  /* === NEW: FORTRESS ACCENT COLORS (MINT GREEN) === */
+  --cyan-glow: #6EFFB8; /* Main Accent: Bright Mint */
+  --blue-glow: #22C55E; /* Secondary Accent: Standard Green */
+  --purple-glow: #A855F7; /* Unused, but kept for legacy */
+  --green-accent: #34D399; /* Kept for success */
+  --red-accent: #F43F5E; /* Kept for errors */
 
-  /* UI Elements */
-  --border-color: #334155; /* Slate 700 */
-  --focus-ring: var(--cyan-glow);
+  /* === NEW: UI ELEMENTS (NEUTRAL) === */
+  --border-color: #333333; /* Neutral border */
+  --focus-ring: var(--cyan-glow); /* Now uses mint */
   --shadow-color: rgba(0, 0, 0, 0.5);
-  --glow-shadow-cyan: 0 0 5px 0px rgba(0, 240, 255, 0.6), 0 0 10px 0px rgba(0, 240, 255, 0.4);
-  --glow-shadow-blue: 0 0 8px 0px rgba(59, 130, 246, 0.5), 0 0 16px 0px rgba(59, 130, 246, 0.3);
+
+  /* === NEW: GLOW SHADOWS (MINT/GREEN) === */
+  --glow-shadow-cyan: 0 0 5px 0px rgba(110, 255, 184, 0.6), 0 0 10px 0px rgba(110, 255, 184, 0.4);
+  --glow-shadow-blue: 0 0 8px 0px rgba(34, 197, 94, 0.5);
+  /* === END OF CHANGES === */
 
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-synthesis: none;
@@ -37,7 +40,7 @@
 /* 2. Global Styles & Resets */
 body, html {
   margin: 0; padding: 0;
-  background-color: var(--bg-black);
+  background-color: var(--bg-black); /* *** FIX: Re-added background color *** */
   color: var(--text-primary);
   line-height: 1.6;
 }
@@ -71,23 +74,17 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   to { transform: rotate(360deg); }
 }
 @keyframes pulseGlowCyan {
-  0%, 100% { box-shadow: 0 0 6px 0px rgba(0, 240, 255, 0.4); text-shadow: 0 0 4px rgba(0, 240, 255, 0.4); }
-  50% { box-shadow: 0 0 12px 2px rgba(0, 240, 255, 0.7); text-shadow: 0 0 8px rgba(0, 240, 255, 0.7); }
+  0%, 100% { box-shadow: 0 0 6px 0px rgba(110, 255, 184, 0.4); text-shadow: 0 0 4px rgba(110, 255, 184, 0.4); }
+  50% { box-shadow: 0 0 12px 2px rgba(110, 255, 184, 0.7); text-shadow: 0 0 8px rgba(110, 255, 184, 0.7); }
 }
-@keyframes animateLines {
-  0% { transform: translateY(-50%); }
-  100% { transform: translateY(100%); }
-}
-@keyframes drawLine { to { stroke-dashoffset: 0; } }
-@keyframes rotateGlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
 
 /* 4. Global Reusable UI Components (Base Styles) */
 
 /* Spinner */
 .spinner {
   width: 1.25rem; height: 1.25rem; border: 3px solid var(--border-color);
-  border-top-color: var(--cyan-glow); border-radius: 50%;
+  border-top-color: var(--cyan-glow); /* Now uses mint */
+  border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
 .spinner.spinner-large { width: 3rem; height: 3rem; border-width: 4px; }
@@ -103,16 +100,26 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
   text-decoration: none;
 }
 .btn-primary {
+  /* Updated gradient to green/mint */
   background: linear-gradient(90deg, var(--blue-glow), var(--cyan-glow)); color: var(--bg-black);
-  font-weight: 700; border: none; box-shadow: 0 4px 15px rgba(0, 240, 255, 0.2), 0 2px 5px rgba(0,0,0,0.2);
+  font-weight: 700; border: none; 
+  box-shadow: 0 4px 15px rgba(110, 255, 184, 0.2), 0 2px 5px rgba(0,0,0,0.2);
 }
-.btn-primary:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(0, 240, 255, 0.3), 0 3px 7px rgba(0,0,0,0.3); transform: translateY(-2px); filter: brightness(1.1); }
-.btn-primary:active:not(:disabled) { transform: translateY(0); filter: brightness(0.95); box-shadow: 0 2px 5px rgba(0, 240, 255, 0.2), inset 0 2px 4px rgba(0,0,0,0.3); }
+.btn-primary:hover:not(:disabled) { 
+  box-shadow: 0 6px 20px rgba(110, 255, 184, 0.3), 0 3px 7px rgba(0,0,0,0.3); 
+  transform: translateY(-2px); 
+  filter: brightness(1.1); 
+}
+.btn-primary:active:not(:disabled) { 
+  transform: translateY(0); 
+  filter: brightness(0.95); 
+  box-shadow: 0 2px 5px rgba(110, 255, 184, 0.2), inset 0 2px 4px rgba(0,0,0,0.3); 
+}
 
 .btn-secondary {
   background-color: var(--bg-panel); color: var(--text-primary); border-color: var(--border-color);
 }
-.btn-secondary:hover:not(:disabled) { background-color: var(--bg-medium); border-color: var(--text-muted); }
+.btn-secondary:hover:not(:disabled) { background-color: #222; border-color: var(--text-muted); }
 
 .btn-danger {
   background-color: var(--red-accent); color: var(--text-primary); border-color: var(--red-accent);
@@ -128,7 +135,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .link {
   color: var(--cyan-glow); background: none; border: none; padding: 0; font: inherit; text-decoration: none; border-bottom: 1px solid transparent; cursor: pointer; transition: color 0.2s ease, text-shadow 0.2s ease, border-color 0.2s ease;
 }
-.link:hover { color: var(--text-primary); text-shadow: 0 0 3px rgba(0, 240, 255, 0.5); border-bottom-color: var(--cyan-glow); }
+.link:hover { color: var(--text-primary); text-shadow: 0 0 3px rgba(110, 255, 184, 0.5); border-bottom-color: var(--cyan-glow); }
 
 /* Messages */
 .message { margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 4px; text-align: center; font-size: 0.9rem; border-left-width: 4px; }
@@ -138,17 +145,19 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 /* Form Inputs (Base Styles) */
 .form-input, textarea.form-input, select.form-input {
   width: 100%; padding: 0.8rem 1rem; font-size: 1rem; color: var(--text-primary);
-  background-color: rgba(10, 15, 26, 0.7); border: 1px solid var(--border-color);
+  background-color: var(--bg-deep-space); /* Updated to neutral */
+  border: 1px solid var(--border-color);
   border-radius: 6px; transition: all 0.2s ease; box-sizing: border-box; font-family: inherit;
 }
 .form-input::placeholder { color: var(--text-muted); }
 .form-input:focus, .form-input:focus-visible,
 textarea.form-input:focus, textarea.form-input:focus-visible,
 select.form-input:focus, select.form-input:focus-visible {
-  outline: none; border-color: var(--focus-ring); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
+  outline: none; border-color: var(--focus-ring); 
+  box-shadow: 0 0 0 3px rgba(110, 255, 184, 0.3); /* Updated focus shadow */
 }
 textarea.form-input { resize: vertical; min-height: 100px; }
-select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2394A3B8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); background-position: right 0.7rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em; padding-right: 2.5rem; }
+select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23A3B3AC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E"); background-position: right 0.7rem center; background-repeat: no-repeat; background-size: 1.25em 1.25em; padding-right: 2.5rem; }
 .form-group { margin-bottom: 1.5rem; position: relative; }
 .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
 
@@ -156,12 +165,13 @@ select.form-input { appearance: none; background-image: url("data:image/svg+xml,
 .page-header {
   font-size: 2.2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;
-  text-shadow: 0 0 4px rgba(0, 240, 255, 0.3);
+  text-shadow: 0 0 4px rgba(110, 255, 184, 0.3); /* Updated text shadow */
   animation: fadeInSlideUp 0.5s ease-out;
 }
 
 /* Global Layout Containers */
-.app-wrapper { min-height: 100vh; display: flex; flex-direction: column; }
+.app-wrapper { min-height: 100vh; display: flex; flex-direction: column; /* *** REMOVED background-color *** */ }
 .main-content { flex-grow: 1; }
+/* Page container now has no top padding, pages control their own. */
 .page-container { max-width: 1280px; margin: 0 auto; padding: 2.5rem; }
 .loading-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: var(--bg-black); }

@@ -1,168 +1,175 @@
-.login-container {
-  min-height: calc(100vh - 140px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+/* REBUILT LOGIN/SIGNUP STYLES - Fortress Theme
+  This file styles both Login.js and Signup.js
+*/
+
+.auth-page-container {
+  /* This container holds the video and the content grid */
+  min-height: 100vh; 
+  width: 100%;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
+  /* Set base background color */
+  background-color: var(--bg-black);
 }
 
-.login-video-bg {
-  position: absolute;
+/* --- 1. Background Video (Full Screen) --- */
+.auth-background-video {
+  position: fixed; /* Fixed to viewport, behind content */
   top: 50%;
   left: 50%;
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
   transform: translate(-50%, -50%);
   z-index: 0;
+  opacity: 0.2; /* --- FIX: Increased opacity --- */
+  filter: grayscale(50%);
 }
 
-.login-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* --- 2. Content Wrapper (holds both columns) --- */
+.auth-content-wrapper {
+  display: grid;
+  /* --- FIX: Changed grid partition --- */
+  grid-template-columns: 1.5fr 1fr; 
+  min-height: 100vh;
   width: 100%;
-  height: 100%;
-  background-color: var(--bg-black);
-  opacity: 0.80; /* Slightly less dark to see the blur */
-  z-index: 1; 
-}
-
-.login-form {
+  z-index: 1; /* Sits on top of the video */
   position: relative;
-  z-index: 2;
-  max-width: 450px;
-  width: 100%;
-  padding: 2.5rem;
-  animation: fadeInSlideUp 0.5s ease-out;
-
-  /* --- *** NEW GLASSY DESIGN *** --- */
-  background-color: rgba(17, 24, 39, 0.6); /* Translucent panel */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  /* --- *** END NEW DESIGN *** --- */
+  background-color: transparent; 
 }
 
-.login-form .brand-title {
-  text-align: center;
-  color: var(--cyan-glow);
-  font-size: 2.5rem;
+/* --- 3. Left Graphic Side (Animated Features) --- */
+.auth-graphic-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  flex-direction: column;
+  /* Dark gradient tint for readability over the video */
+  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.auth-features {
+  text-align: left;
+  max-width: 500px;
+}
+
+.auth-brand-name {
+  font-size: 3rem;
   font-weight: 900;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  text-shadow: var(--glow-shadow-cyan);
-}
-
-.login-form .form-subtitle {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 1rem;
+  color: var(--text-primary);
   margin-bottom: 2rem;
+  text-shadow: 0 0 5px rgba(0,0,0,0.8);
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
+/* Animated Text Styles */
+.feature-text-animated {
+  transition: opacity 0.5s ease-in-out;
+  height: 120px; /* Fixed height for clean animation cycle */
+  overflow: hidden;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
+.feature-text-animated.fade-in {
+  opacity: 1;
+}
+.feature-text-animated.fade-out {
+  opacity: 0;
+}
+
+.feature-word {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--cyan-glow); /* Mint Green Accent */
+  text-shadow: var(--glow-shadow-cyan);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.feature-description {
+  font-size: 1.1rem;
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
+  margin-top: 0.5rem;
 }
 
-.form-input {
+/* --- 4. Right Form Side (Fixed Width Panel) --- */
+.auth-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* --- FIX: Removed background and shadow from side panel --- */
+  background-color: transparent; 
+  box-shadow: none;
+}
+
+.auth-form-box {
+  /* --- FIX: This box now creates the "panel" --- */
+  
+  /*border: 250px solid var(--bg-deep-space);*/
+  border-radius: 0px;
+  padding: 2.5rem;
   width: 100%;
-  padding: 0.8rem 1rem;
-  font-size: 1rem;
+  max-width: 380px; /* Increased max-width */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Added shadow to float */
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 900;
   color: var(--text-primary);
-  /* --- *** MODIFIED: Darker for glass effect *** --- */
-  background-color: rgba(10, 15, 26, 0.7); 
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  box-sizing: border-box; 
-}
-
-.form-input:focus, .form-input:focus-visible {
-  outline: none;
-  border-color: var(--focus-ring);
-  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.3);
-}
-
-.form-input::placeholder {
-  color: var(--text-muted);
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%; 
-  box-sizing: border-box;
-}
-
-.btn-primary {
-  background-color: var(--primary-accent);
-  border-color: var(--primary-accent);
-  color: var(--bg-black);
-}
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-accent-hover);
-  border-color: var(--primary-accent-hover);
-  box-shadow: 0 0 15px var(--glow-shadow-cyan);
-}
-.btn:disabled {
-  background-color: var(--border-color);
-  border-color: var(--border-color);
-  color: var(--text-muted);
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.message {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 6px;
-  font-weight: 500;
+  margin: 0 0 0.5rem 0;
   text-align: center;
 }
-.success-message {
-  background: rgba(22, 163, 74, 0.1); 
-  border: 1px solid var(--green-accent);
-  color: var(--text-primary);
-}
-.error-message {
-  background: rgba(220, 38, 38, 0.1); 
-  border: 1px solid var(--red-accent);
-  color: var(--red-accent);
+
+/* --- Form and Button Styling (Uses global variables) --- */
+.form-input {
+  /* Override global deep-space to be even darker for contrast */
+  background-color: var(--bg-black);
 }
 
-.form-toggle-link {
+.auth-toggle-link {
   text-align: center;
   margin-top: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
 }
-
-.form-toggle-link a {
-  color: var(--cyan-glow);
+.auth-toggle-link .link {
+  font-size: 0.95rem;
   font-weight: 600;
-  text-decoration: none;
 }
-.form-toggle-link a:hover {
-  text-decoration: underline;
+
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 900px) {
+  .auth-content-wrapper {
+    /* Stack columns */
+    grid-template-columns: 1fr;
+  }
+  .auth-graphic-side {
+    /* Top half on mobile */
+    min-height: 30vh; 
+    padding: 2rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 100%);
+  }
+  .auth-features {
+    text-align: center;
+  }
+  .auth-brand-name {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .feature-word {
+    font-size: 2.5rem;
+  }
+  .auth-form-side {
+    /* Bottom half on mobile */
+    min-height: 70vh;
+    padding: 1.5rem;
+    background-color: var(--bg-black);
+    box-shadow: none;
+  }
+  .auth-form-box {
+    padding: 1.5rem;
+    /* Use deep space for the box itself, slightly lighter than background */
+    background-color: var(--bg-deep-space); 
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Import useState
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
@@ -25,6 +25,8 @@ const Spinner = ({ size = 'w-8 h-8', color = 'border-t-cyan-glow' }) => (
     <div className={`spinner ${size === 'spinner-large' ? 'spinner-large' : ''}`}></div>
 );
 
+// --- *** 'CodeVaultLogo' function removed. It was unused. *** ---
+
 function ProtectedRoute() {
   const { user, loading } = useAuth();
   const location = useLocation();
@@ -38,33 +40,26 @@ function ProtectedRoute() {
   return <Outlet />;
 }
 
-// --- *** NEW: Hamburger Icon *** ---
 const HamburgerIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
   </svg>
 );
-// --- *** NEW: Close Icon *** ---
 const CloseIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
   </svg>
 );
 
-
-// --- *** Main Layout Component (MODIFIED) *** ---
 function MainLayout() {
     const { user, signOut } = useAuth();
     const navigate = useNavigate();
     const location = useLocation(); 
-    
-    // --- *** NEW: State for mobile menu *** ---
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // --- *** NEW: Close menu on navigation *** ---
     useEffect(() => {
       setIsMobileMenuOpen(false);
-    }, [location.pathname]); // Dependency: runs when path changes
+    }, [location.pathname]);
 
     const handleSignOut = async () => {
         if (signOut) {
@@ -78,11 +73,11 @@ function MainLayout() {
     return (
         <div className="app-wrapper">
             <nav className="navbar">
+              <div className="navbar-content">
                 <Link to={user ? "/home" : "/"} className="nav-brand">
-                    <span>CodeVault</span>
+                    <span>Codevault</span>
                 </Link>
                 
-                {/* --- *** NEW: Hamburger Button (Mobile only) *** --- */}
                 <button 
                   className="nav-hamburger-btn" 
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -90,30 +85,34 @@ function MainLayout() {
                   {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
                 </button>
 
-                {/* --- *** MODIFIED: Links container *** --- */}
                 <div className={`nav-links ${isMobileMenuOpen ? 'nav-links-mobile-open' : ''}`}>
+                    <div className="nav-links-left">
+                      <Link to="/marketplace" className={`nav-link ${isActive('/marketplace') ? 'nav-link-active' : ''}`}>Marketplace</Link>
+                      <Link to="/about" className={`nav-link ${isActive('/about') ? 'nav-link-active' : ''}`}>About</Link>
+                      <Link to="/downloads" className={`nav-link ${isActive('/downloads') ? 'nav-link-active' : ''}`}>Downloads</Link>
+                    </div>
+
+                    <div className="nav-links-right">
                     {user ? (
                         <>
-                            <Link to="/home" className={`nav-link ${isActive('/home') ? 'nav-link-active' : ''}`}>Home</Link>
-                            <Link to="/marketplace" className={`nav-link ${isActive('/marketplace') ? 'nav-link-active' : ''}`}>Marketplace</Link>
-                            <Link to="/downloads" className={`nav-link ${isActive('/downloads') ? 'nav-link-active' : ''}`}>Downloads</Link>
                             <Link to="/loader" className={`nav-link ${isActive('/loader') ? 'nav-link-active' : ''}`}>My Library</Link>
-                            <Link to="/upload" className={`nav-link ${isActive('/upload') ? 'nav-link-active' : ''}`}>Upload</Link>
-                            <Link to="/modify" className={`nav-link ${isActive('/modify') ? 'nav-link-active' : ''}`}>Modify</Link>
+                            <Link to="/upload" className={`nav-link ${isActive('/upload') ? 'nav-link-active' : ''}`}>Sell Code</Link>
                             <Link to="/profile" className={`nav-link ${isActive('/profile') ? 'nav-link-active' : ''}`}>Profile</Link>
-                            <button onClick={handleSignOut} className="nav-link btn-danger btn-small">
+                            <button onClick={handleSignOut} className="nav-link nav-link-button btn-secondary btn-small">
                                 Sign Out
                             </button>
                         </>
                     ) : (
                         <>
-                            <Link to="/about" className={`nav-link ${isActive('/about') ? 'nav-link-active' : ''}`}>About</Link>
-                            <Link to="/downloads" className={`nav-link ${isActive('/downloads') ? 'nav-link-active' : ''}`}>Downloads</Link>
                             <Link to="/login" className={`nav-link ${isActive('/login') ? 'nav-link-active' : ''}`}>Login</Link>
-                            <Link to="/signup" className={`nav-link ${isActive('/signup') ? 'nav-link-active' : ''}`}>Sign Up</Link>
+                            <Link to="/signup" className="nav-link nav-link-button btn-primary btn-small">
+                              Sign Up
+                            </Link>
                         </>
                     )}
+                    </div>
                 </div>
+              </div>
             </nav>
             
             <main className="main-content">
@@ -125,7 +124,6 @@ function MainLayout() {
     );
 }
 
-// --- App Component (Routes are unchanged) ---
 function App() {
   const { user, loading } = useAuth();
 
@@ -139,23 +137,25 @@ function App() {
       <Route path="/signup" element={user ? <Navigate to="/home" replace /> : <SignupPage />} />
 
       <Route path="/" element={<MainLayout />}>
+        {/* Public Routes */}
+        <Route index element={!user ? <Navigate to="/home" replace /> : <HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/marketplace" element={<MarketplacePage />} />
+        <Route path="/marketplace/:listingId" element={<CodeDetailPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/downloads" element={<DownloadsPage />} />
 
+        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
-           <Route path="/home" element={<HomePage />} />
-           <Route path="/marketplace" element={<MarketplacePage />} />
            <Route path="/upload" element={<UploadPage />} />
            <Route path="/loader" element={<LoaderPage />} />
            <Route path="/modify" element={<ModifyPage />} />
            <Route path="/profile" element={<ProfilePage />} />
-           <Route path="/marketplace/:listingId" element={<CodeDetailPage />} />
         </Route>
 
-        <Route index element={!user ? <Navigate to="/login" replace /> : <HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
@@ -166,7 +166,7 @@ function NotFoundPage() {
     const navigate = useNavigate();
     const { user } = useAuth();
     return (
-        <div className="page-container text-center">
+        <div className="page-container text-center" style={{paddingTop: '4rem'}}>
             <h2 style={{color: 'var(--red-accent)', fontSize: '2.5rem', marginBottom: '1rem'}}>404 - Not Found</h2>
             <p className="text-secondary">The page you requested does not exist.</p>
             <button onClick={() => navigate(user ? '/home' : '/login')} className="btn btn-primary" style={{marginTop: '1.5rem'}}>

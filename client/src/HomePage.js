@@ -1,5 +1,4 @@
-// --- *** FIX: Removed 'useState' *** ---
-import React, { useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './HomePage.css'; // Import the specific styles
 
@@ -14,7 +13,6 @@ const DesktopIcon = () => (
   </svg>
 );
 
-// (steps data remains the same)
 const steps = [
   { id: 1, title: '1. Seller Uploads & Encrypts', description: "Developer uploads code. It's instantly encrypted with a unique key (AES-GCM 256-bit) and stored. Plaintext is never saved." },
   { id: 2, title: '2. Buyer Purchases License', description: "A buyer purchases access, granting their account permission to use the code's functionality, not the source." },
@@ -24,17 +22,6 @@ const steps = [
 
 function HomePage() {
   const navigate = useNavigate();
-  const pathRef = useRef(null); 
-
-  // 1. Draw the SVG line on load
-  useLayoutEffect(() => {
-    if (pathRef.current) {
-      const totalLength = pathRef.current.getTotalLength();
-      pathRef.current.style.strokeDasharray = `${totalLength} ${totalLength}`;
-      pathRef.current.style.strokeDashoffset = 0;
-      pathRef.current.style.transition = 'stroke-dashoffset 2s ease-out';
-    }
-  }, []);
 
   // 2. Intersection Observer for fade-ins
   useEffect(() => {
@@ -56,6 +43,17 @@ function HomePage() {
 
   return (
     <div className="homepage-content">
+      {/* --- *** FIX: Video Background (Video 3) *** --- */}
+      <video
+        className="homepage-background-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/Matrix_Video_For_Website_Background.mp4" type="video/mp4" />
+      </video>
+
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content fade-in-section is-visible">
@@ -71,18 +69,16 @@ function HomePage() {
           </button>
         </div>
         <div className="hero-graphic fade-in-section is-visible">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style={{stopColor: 'var(--blue-glow)', stopOpacity: 1}} />
-                    <stop offset="100%" style={{stopColor: 'var(--cyan-glow)', stopOpacity: 1}} />
-                    </linearGradient>
-                </defs>
-                <path className="glow-line" d="M 50,50 Q 150,50 150,150 Q 50,150 50,50 Z" stroke="url(#glowGrad)" fill="none" />
-                 <circle cx="70" cy="70" r="10" fill="rgba(0, 240, 255, 0.3)" />
-                 <circle cx="130" cy="130" r="15" fill="rgba(59, 130, 246, 0.3)" />
-                 <rect x="40" y="120" width="20" height="20" fill="rgba(168, 85, 247, 0.2)" rx="5" />
-            </svg>
+            {/* --- *** FIX: Hero graphic replaced with Video 1 *** --- */}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              
+              
+            </video>
         </div>
       </section>
 
@@ -113,76 +109,28 @@ function HomePage() {
         </div>
       </section>
 
-      {/* --- "How It Works" Section (Static) --- */}
-      <section className="how-it-works-section-wrapper fade-in-section">
-        
-        <div className="page-container hiw-title-container">
+      {/* --- Vertical Timeline "How It Works" Section --- */}
+      <section className="hiw-timeline-section page-container fade-in-section">
+        <div className="hiw-title-container">
           <h2 className="section-title">How It <span className="highlight">Works</span></h2>
           <p className="section-subtitle">
             An end-to-end security flow that protects sellers and empowers buyers.
           </p>
         </div>
-
-        <div className="hiw-scroll-track" style={{height: 'auto'}}>
-          <div className="hiw-sticky-container" style={{position: 'relative', height: 'auto'}}>
-            <div className="hiw-grid">
-              {/* Column 1: Text Content */}
-              <div className="hiw-content-column">
-                <div className="hiw-steps-list">
-                  {steps.map((step) => (
-                    <div 
-                      key={step.id} 
-                      className={`hiw-step-content active`}
-                    >
-                      <h4>{step.title}</h4>
-                      <p>{step.description}</p>
-                    </div>
-                  ))}
-                </div>
+        <div className="hiw-timeline-list">
+          {steps.map((step, index) => (
+            <div key={step.id} className="hiw-timeline-step">
+              <div className="timeline-node">
+                <span className="step-number">{step.id}</span>
               </div>
-
-              {/* Column 2: SVG Animation */}
-              <div className="hiw-svg-column">
-                <svg className="hiw-svg-vertical" viewBox="0 0 300 1000" preserveAspectRatio="xMidYMin meet">
-                  <defs>
-                    <linearGradient id="line-glow-gradient" x1="0" y1="0" x2="0" y2="100%">
-                      <stop offset="0%" stopColor="var(--blue-glow)" />
-                      <stop offset="100%" stopColor="var(--cyan-glow)" />
-                    </linearGradient>
-                  </defs>
-
-                  <path 
-                    d="M 150 50 L 150 200 Q 150 250 100 250 L 50 250 Q 0 250 0 300 L 0 400 Q 0 450 50 450 L 250 450 Q 300 450 300 500 L 300 600 Q 300 650 250 650 L 150 650 L 150 950"
-                    stroke="var(--border-color)" 
-                    strokeWidth="4" 
-                    fill="none" 
-                  />
-                  <path 
-                    ref={pathRef}
-                    id="hiw-path-glow"
-                    d="M 150 50 L 150 200 Q 150 250 100 250 L 50 250 Q 0 250 0 300 L 0 400 Q 0 450 50 450 L 250 450 Q 300 450 300 500 L 300 600 Q 300 650 250 650 L 150 650 L 150 950"
-                    stroke="url(#line-glow-gradient)"
-                    strokeWidth="4" 
-                    fill="none" 
-                  />
-                  
-                  <circle cx="150" cy="225" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
-                  <text x="150" y="231" className={`hiw-svg-node-text active`}>+</text>
-                  <circle cx="0" cy="350" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
-                  <text x="0" y="356" className={`hiw-svg-node-text active`}>+</text>
-                  <circle cx="300" cy="550" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
-                  <text x="300" y="556" className={`hiw-svg-node-text active`}>+</text>
-                  <circle cx="150" cy="800" r="14" fill="var(--bg-deep-space)" stroke="var(--border-color)" strokeWidth="2" className={`hiw-svg-node active`} />
-                  <text x="150" y="806" className={`hiw-svg-node-text active`}>+</text>
-                </svg>
+              <div className="timeline-content">
+                <h4>{step.title}</h4>
+                <p>{step.description}</p>
               </div>
-
             </div>
-          </div>
+          ))}
         </div>
       </section>
-      {/* --- END "How It Works" Section --- */}
-
       
       {/* --- APP DOWNLOAD CTA SECTION --- */}
       <section className="app-cta-section page-container fade-in-section">
@@ -204,8 +152,6 @@ function HomePage() {
           <DesktopIcon />
         </div>
       </section>
-      {/* --- END NEW SECTION --- */}
-
 
        {/* Security Focus Section */}
       <section className="security-section fade-in-section">

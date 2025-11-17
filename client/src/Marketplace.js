@@ -1,26 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
-// --- *** FIX: Removed unused 'useAuth' *** ---
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'; // Import useLocation
 import './Marketplace.css';
 
 const Spinner = () => <div className="spinner spinner-large"></div>;
 
-// Placeholder Icon
 const CodeIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
   </svg>
 );
 
+// A helper to parse the query string
+function useQuery() {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 function MarketplacePage() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
   
-  // --- *** FIX: Removed unused 'user' variable *** ---
-  // const { user } = useAuth();
+  const query = useQuery();
+  const [searchTerm, setSearchTerm] = useState(query.get('search') || '');
+
+  useEffect(() => {
+    // This allows the component to update if the URL query changes
+    // but not if the user just types in the box.
+    const urlSearch = query.get('search') || '';
+    if (urlSearch !== searchTerm) {
+      setSearchTerm(urlSearch);
+    }
+    // We only want this effect to run when the URL query itself changes.
+  }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -47,15 +60,17 @@ function MarketplacePage() {
       setLoading(false);
     };
 
+    // Debounce the fetch
     const delayDebounceFn = setTimeout(() => {
       fetchListings();
     }, 300); 
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
+  }, [searchTerm]); // Re-fetch when searchTerm changes
 
   return (
-    <div className="page-container marketplace-container">
+    // Note: page-container is now on the parent (HomePage or App.js)
+    <div className="marketplace-container"> 
       <h1 className="marketplace-title">Marketplace</h1>
       <p className="marketplace-subtitle">Browse and purchase secure code assets.</p>
 
@@ -69,7 +84,7 @@ function MarketplacePage() {
         />
       </div>
 
-      {loading && <div className="loading-container"><Spinner /></div>}
+      {loading && <div className="loading-container" style={{minHeight: '30vh'}}><Spinner /></div>}
       
       {error && <p className="error-message">{error}</p>}
 

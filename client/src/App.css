@@ -1,5 +1,4 @@
-/* src/App.css - LAYOUT STYLES ONLY - Quantum Lock Theme */
-/* Assumes variables (--bg-black, --border-color etc.) are defined in index.css */
+/* src/App.css - REBUILT STYLES - Fortress Theme */
 
 /* App Wrapper */
 .app-wrapper {
@@ -11,110 +10,68 @@
 /* Main Content Area */
 .main-content {
   flex-grow: 1; /* Pushes footer down */
-  /* No padding here, use .page-container inside pages */
-}
-
-/* Page Container (Generic padding/width for pages - Can live here or index.css) */
-.page-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2.5rem; /* Standard page padding */
-}
-
-/* --- Navbar Styles --- */
-.navbar {
-  background-color: rgba(0, 0, 0, 0.7); /* Black translucent */
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.75rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-.nav-brand {
-  display: flex; align-items: center; gap: 0.75rem; font-size: 1.6rem; font-weight: 900;
-  color: var(--cyan-glow); text-decoration: none; transition: transform 0.2s ease-out, text-shadow 0.2s ease-out;
-  text-shadow: 0 0 6px rgba(0, 240, 255, 0.6); cursor: pointer;
-}
-.nav-brand:hover { transform: scale(1.03); text-shadow: 0 0 10px rgba(0, 240, 255, 0.8); }
-.nav-brand-logo { /* Optional Logo Placeholder */
-  width: 2rem; height: 2rem; border: 2px solid var(--cyan-glow); border-radius: 50%;
-  box-shadow: var(--glow-shadow-cyan); display: flex; justify-content: center; align-items: center;
-  background-color: rgba(0, 240, 255, 0.1);
-}
-.nav-links { display: flex; align-items: center; gap: 0.75rem; }
-.nav-link { /* Base styles for Nav Links */
-  color: var(--text-secondary); background-color: transparent; border: none; font-family: inherit;
-  font-size: 0.95rem; font-weight: 500; padding: 0.6rem 0.9rem; border-radius: 6px;
-  text-decoration: none; cursor: pointer; transition: all 0.2s ease-out; position: relative;
-  border: 1px solid transparent;
-}
-.nav-link::after { /* Underline effect */
-  content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
-  width: 0; height: 2px; background-color: var(--cyan-glow); box-shadow: 0 0 5px var(--cyan-glow);
-  transition: width 0.3s ease; border-radius: 1px;
-}
-.nav-link:hover { color: var(--text-primary); background-color: rgba(51, 65, 85, 0.3); /* Optional hover bg */ }
-.nav-link:hover::after { width: 70%; }
-.nav-link.nav-link-active { color: var(--cyan-glow); text-shadow: 0 0 4px rgba(0, 240, 255, 0.5); }
-.nav-link.nav-link-active::after { width: 70%; }
-.nav-link.btn-danger { /* Sign out button specifics */
-  border-color: var(--red-accent); color: var(--red-accent); padding: 0.4rem 0.8rem; font-size: 0.85rem;
-}
-.nav-link.btn-danger:hover { background-color: rgba(244, 63, 94, 0.2); color: #FCCFCF; border-color: rgba(244, 63, 94, 0.5); text-shadow: 0 0 3px rgba(244, 63, 94, 0.5); }
-.nav-link.btn-danger::after { display: none; }
-.nav-user { color: var(--text-muted); font-size: 0.85rem; margin-left: 0.75rem; }
-
-/* Footer is no longer in App.css
-  The old .footer style has been removed.
-  It is now handled by Footer.js and Footer.css 
-*/
-/* --- Main App Layout --- */
-.app-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--bg-black);
-}
-
-.main-content {
-  flex-grow: 1;
   width: 100%;
 }
 
-/* --- Navbar Styles --- */
+/* --- Rebuilt Navbar Styles --- */
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  height: 70px;
   background-color: var(--bg-deep-space);
   border-bottom: 1px solid var(--border-color);
+  padding: 0 2rem;
+  height: 70px;
   position: sticky;
   top: 0;
   z-index: 100;
   width: 100%;
-  box-sizing: border-box; /* Ensures padding doesn't add to width */
+  box-sizing: border-box; 
+}
+
+.navbar-content {
+  /* max-width: 1280px;  <-- REMOVED */
+  /* margin: 0 auto;       <-- REMOVED */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%; /* <-- ADDED */
 }
 
 .nav-brand {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--cyan-glow);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
   text-decoration: none;
-  text-shadow: var(--glow-shadow-cyan);
+  transition: opacity 0.2s ease-out;
+  /* --- FIX: Added flex-shrink --- */
+  flex-shrink: 0;
 }
 .nav-brand:hover {
-  color: var(--primary-accent-hover);
+  opacity: 0.8;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  width: 100%;
+  /* --- FIX: Added justify-content --- */
+  justify-content: space-between;
+}
+.nav-links-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  /* --- FIX: Added margin-left --- */
+  margin-left: 2rem;
+}
+.nav-links-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-link {
@@ -130,17 +87,33 @@
 }
 .nav-link:hover {
   color: var(--text-primary);
-  text-shadow: 0 0 5px var(--glow-shadow-cyan);
 }
 .nav-link-active {
   color: var(--cyan-glow);
-  font-weight: 700;
-  text-shadow: 0 0 5px var(--glow-shadow-cyan);
+  font-weight: 600;
 }
 
-/* --- *** NEW: Hamburger Menu Button *** --- */
+/* Button styles for nav links */
+.nav-link-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  text-shadow: none !important;
+}
+.nav-link-button.btn-primary {
+  color: var(--bg-black);
+  box-shadow: 0 4px 10px rgba(110, 255, 184, 0.1);
+}
+.nav-link-button.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 15px rgba(110, 255, 184, 0.2);
+}
+.nav-link-button.btn-secondary:hover:not(:disabled) {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+
 .nav-hamburger-btn {
-  display: none; /* Hidden by default */
+  display: none;
   background: none;
   border: none;
   color: var(--text-primary);
@@ -152,38 +125,66 @@
   height: 28px;
 }
 
-/* --- *** NEW: Mobile Responsive Styles *** --- */
+/* --- Mobile Responsive Styles --- */
 @media (max-width: 900px) {
   .navbar {
     padding: 0 1.5rem;
   }
   
+  /* --- FIX: Show hamburger, hide links --- */
   .nav-hamburger-btn {
-    display: block; /* Show the hamburger button */
-    z-index: 102; /* Above the mobile menu */
+    display: block;
+    z-index: 102;
+    margin-left: 1rem; /* Add space */
   }
 
   .nav-links {
-    /* --- This is the mobile menu --- */
     position: fixed;
-    top: 0;
-    right: -100%; /* Start off-screen */
+    top: 70px; /* Position below navbar */
+    right: -100%;
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 70px);
     background: var(--bg-deep-space);
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    align-items: flex-start; /* Align left */
+    justify-content: flex-start;
+    gap: 0;
     transition: right 0.3s ease-in-out;
     z-index: 101;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    margin-left: 0; /* Reset margin */
   }
+  /* --- END FIX --- */
 
   .nav-links-mobile-open {
-    right: 0; /* Slide in */
+    right: 0;
   }
   
+  .nav-links-left, .nav-links-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    margin-left: 0; /* Reset margin */
+  }
+
+  .nav-links-right {
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+
   .nav-link {
-    font-size: 1.5rem; /* Make links bigger */
+    font-size: 1.2rem; /* Make links bigger */
+    padding: 0.75rem 0.5rem;
+    width: 100%;
+  }
+  
+  .nav-link-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
   }
 }
