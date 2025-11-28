@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from './supabaseClient';
 import { useAuth } from './AuthContext';
-// --- *** FIX: Removed 'useNavigate' since it's not used *** ---
-// import { useNavigate } from 'react-router-dom'; 
 import './CodeModifier.css'; 
 
 const Spinner = ({ size = '' }) => <div className={`spinner ${size}`}></div>;
@@ -17,9 +15,6 @@ function CodeModifier() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   
-  // --- *** FIX: Removed unused 'navigate' variable *** ---
-  // const navigate = useNavigate();
-
   // Fetch all purchasable/modifiable items
   const fetchPurchases = useCallback(async () => {
     if (!user) return;
@@ -78,7 +73,7 @@ function CodeModifier() {
     );
     
     setSelectedVersion(selectedPath);
-    setListingId(parentPurchase.listing_id);
+    setListingId(parentPurchase ? parentPurchase.listing_id : '');
   };
 
   const handleSubmit = async (e) => {
@@ -92,11 +87,12 @@ function CodeModifier() {
     setMessage('Sending request to AI... This may take a moment.');
 
     try {
+      // --- *** FIX: Aligned property names with Server expectation *** ---
       const { data, error } = await supabase.functions.invoke('modify-code', {
         body: {
-          baseStoragePath: selectedVersion, // The path of the code to modify
-          listingId: listingId,            // The original listing ID
-          modificationRequest: modificationRequest,
+          storagePath: selectedVersion,   // Changed from baseStoragePath
+          listingId: listingId,
+          requestText: modificationRequest, // Changed from modificationRequest
         },
       });
 
@@ -105,9 +101,8 @@ function CodeModifier() {
       
       setMessage(`Success! Version ${data.newVersionNumber} created. You can now run it from your Library.`);
       setModificationRequest('');
-      setSelectedVersion('');
-      setListingId('');
       
+      // Refresh list to show new version
       await fetchPurchases(); 
 
     } catch (err) {

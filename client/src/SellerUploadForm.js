@@ -18,16 +18,27 @@ function SellerUploadForm() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
     setDescription('');
     setPyRequirements([]);
     setMessage('');
+
+    // Immediate validation feedback
+    if (selectedFile && selectedFile.size === 0) {
+      setMessage('Error: The selected file is empty.');
+    }
   };
 
   const handleGenerateDescription = useCallback(async () => {
     if (!file) {
       setMessage('Please select a file first.');
       return;
+    }
+
+    if (file.size === 0) {
+        setMessage('Error: File is empty. Please select a valid code file.');
+        return;
     }
     
     if (file.size > 1 * 1024 * 1024) { // 1MB limit for AI scan
@@ -43,6 +54,13 @@ function SellerUploadForm() {
     try {
       const fileText = await file.text();
       
+      // Double check content before sending
+      if (!fileText || fileText.trim().length === 0) {
+        throw new Error("File content is empty or whitespace only.");
+      }
+
+      console.log("Sending file text length:", fileText.length); // Debug log
+
       const { data, error } = await supabase.functions.invoke('generate-description', {
         body: { codeContent: fileText },
       });
@@ -62,7 +80,7 @@ function SellerUploadForm() {
       }
     } catch (err) {
       console.error('Error generating description:', err);
-      setMessage(`Error: ${err.message}`);
+      setMessage(`AI Generation Error: ${err.message}`);
     } finally {
       setIsGenerating(false);
     }
@@ -92,10 +110,7 @@ function SellerUploadForm() {
       formData.append('price', price);
       formData.append('sellerId', user.id);
       formData.append('pyRequirements', JSON.stringify(pyRequirements));
-      
-      // --- *** THIS IS THE NEW LINE *** ---
-      formData.append('sellerEmail', user.email); // Send the user's email
-      // --- *** END OF NEW LINE *** ---
+      formData.append('sellerEmail', user.email); 
 
       const { data, error } = await supabase.functions.invoke('upload-and-encrypt-code', {
         body: formData,
@@ -191,7 +206,7 @@ function SellerUploadForm() {
         </button>
 
         {message && (
-          <p className={`message ${message.startsWith('Error') || message.startsWith('Upload failed') ? 'error-message' : 'success-message'}`}>
+          <p className={`message ${message.startsWith('Error') || message.startsWith('Upload failed') || message.startsWith('AI Generation Error') ? 'error-message' : 'success-message'}`}>
             {message}
           </p>
         )}

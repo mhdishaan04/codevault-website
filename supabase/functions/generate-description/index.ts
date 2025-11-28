@@ -19,14 +19,26 @@ serve(async (req: Request) => {
   }
 
   try {
-    const { codeContent } = await req.json();
-
-    if (!codeContent) {
-      throw new Error('No code content provided.');
+    // Read JSON body securely
+    let body;
+    try {
+        body = await req.json();
+    } catch (parseError) {
+        throw new Error(`Failed to parse request body: ${parseError.message}`);
     }
+
+    const { codeContent } = body;
+
+    // --- LOGGING FOR DEBUGGING ---
+    if (!codeContent || typeof codeContent !== 'string' || codeContent.trim().length === 0) {
+      console.error("Missing or empty codeContent. Received body keys:", Object.keys(body));
+      if (typeof codeContent === 'string') {
+          console.error("codeContent length:", codeContent.length);
+      }
+      throw new Error('No code content provided. Please upload a valid non-empty code file.');
+    }
+    // -----------------------------
     
-    // --- *** NEW AI PROMPT *** ---
-    // This prompt asks for a structured JSON response
     const prompt = `
       Analyze the following code. Return ONLY a valid JSON object with two keys:
       1. "description": A concise, one-sentence description of what this code does.
@@ -42,14 +54,12 @@ serve(async (req: Request) => {
       ${codeContent}
       """
     `;
-    // --- *** END OF NEW PROMPT *** ---
 
     const geminiResponse = await fetch(GEMINI_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             contents: [{ parts: [{ text: prompt }] }],
-            // Ask Gemini to strictly return JSON
             generationConfig: { responseMimeType: "application/json" }
         }),
     });
@@ -63,16 +73,19 @@ serve(async (req: Request) => {
     const geminiResult = await geminiResponse.json();
     const responseText = geminiResult?.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
     
-    // --- *** NEW: Parse the JSON response *** ---
-    const aiResponse = JSON.parse(responseText);
+    let aiResponse;
+    try {
+         aiResponse = JSON.parse(responseText);
+    } catch (e) {
+         console.error("AI returned invalid JSON string:", responseText);
+         throw new Error("AI returned malformed JSON.");
+    }
 
-    // Ensure the response is in the expected format
     if (!aiResponse.description || !Array.isArray(aiResponse.requirements)) {
-        console.error("AI returned invalid JSON format. Received:", responseText);
+        console.error("AI returned invalid JSON format structure. Received:", responseText);
         throw new Error('AI returned an invalid JSON format.');
     }
     
-    // Return the full JSON object
     return new Response(JSON.stringify(aiResponse), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
@@ -81,7 +94,7 @@ serve(async (req: Request) => {
     console.error('Error generating description/requirements:', error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 500,
+      status: 400, // Changed to 400 for client errors
     });
   }
 });
